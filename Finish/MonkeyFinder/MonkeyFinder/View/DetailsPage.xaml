@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MonkeyFinder.View.DetailsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:imagecircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    Title="{Binding Title}"
+    ios:Page.UseSafeArea="True"
+    mc:Ignorable="d">
+    <d:ContentPage.BindingContext>
+        <viewmodel:MonkeyDetailsViewModel />
+    </d:ContentPage.BindingContext>
+    <ScrollView>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <BoxView
+                    Grid.ColumnSpan="3"
+                    BackgroundColor="{StaticResource Primary}"
+                    HeightRequest="100"
+                    HorizontalOptions="FillAndExpand" />
+                <StackLayout
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Margin="0,50,0,0">
+
+                    <imagecircle:CircleImage
+                        Aspect="AspectFill"
+                        BorderColor="White"
+                        BorderThickness="2"
+                        FillColor="White"
+                        HeightRequest="100"
+                        Source="{Binding Monkey.Image}"
+                        VerticalOptions="Center"
+                        WidthRequest="100" />
+                </StackLayout>
+
+                <Label
+                    Grid.Row="1"
+                    Margin="10"
+                    FontSize="Micro"
+                    HorizontalOptions="Center"
+                    Text="{Binding Monkey.Location}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="10"
+                    FontSize="Micro"
+                    HorizontalOptions="Center"
+                    Text="{Binding Monkey.Population}" />
+            </Grid>
+            <Label
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                Text="{Binding Monkey.Name}" />
+            <Button
+                Margin="8"
+                Command="{Binding OpenMapCommand}"
+                HorizontalOptions="Center"
+                Style="{StaticResource ButtonOutline}"
+                Text="Show on Map"
+                WidthRequest="200" />
+
+            <BoxView HeightRequest="1" Color="#DDDDDD" />
+
+            <Label Margin="10" Text="{Binding Monkey.Details}" />
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
