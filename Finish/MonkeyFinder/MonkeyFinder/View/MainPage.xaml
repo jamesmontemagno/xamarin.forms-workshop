@@ -34,8 +34,11 @@
                   CachingStrategy="RecycleElement"
                   ItemSelected="ListView_ItemSelected"
                   HasUnevenRows="True"
+                  Grid.ColumnSpan="2"
                   SeparatorVisibility="None"
-                  Grid.ColumnSpan="2">
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  RefreshCommand="{Binding GetMonkeysCommand}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
                     <ViewCell>
@@ -43,6 +46,7 @@
                             Margin="10,5" Padding="0"
                             BackgroundColor="White" CornerRadius="10"
                             HeightRequest="125" IsClippedToBounds="True"
+                            InputTransparent="True"
                             Visual="Material">
                             <Grid Padding="0" ColumnSpacing="10">
                                 <Grid.ColumnDefinitions>

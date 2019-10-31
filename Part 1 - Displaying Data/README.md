@@ -3,7 +3,7 @@
 
 In Part 1 we will go over what makes up a Xamarin.Forms project and how to display a list of data in a list.
 
-### 1. Open Solution in Visual Studio
+### Open Solution in Visual Studio
 
 1. Open **Start/MonkeyFinder.sln**
 
@@ -17,7 +17,7 @@ This MonkeyFinder contains 4 projects
 
 The **MonkeyFinder** project also has blank code files and XAML pages that we will use during the Hands on Lab. All of the code that we modify will be in this project for the workshop.
 
-### 2. NuGet Restore
+### NuGet Restore
 
 All projects have the required NuGet packages already installed, so there will be no need to install additional packages during the Hands on Lab. The first thing that we must do is restore all of the NuGet packages from the internet.
 
@@ -25,7 +25,7 @@ All projects have the required NuGet packages already installed, so there will b
 
 ![Restore NuGets](../Art/RestoreNuGets.PNG)
 
-### 3. Model
+### Model
 
 We will download details about the monkey and will need a class to represent it.
 
@@ -91,7 +91,7 @@ One key difference is that we will change:
 
 This will allow us to more easily display data in the next step.
 
-### 4. Displaying Data
+### Displaying Data
 
 We can display hard coded data of any data type in a `ListView` in our `MainPage.xaml`. This will allow us to use built in data cells such as the `ImageCell` that will automatically display text information and images in the `ListView`. Add the following into the MainPage.xaml's `ContentPage`:
 
@@ -113,6 +113,27 @@ We can display hard coded data of any data type in a `ListView` in our `MainPage
     </ListView.ItemTemplate>
 </ListView>
 ```
+
+
+
+### Run the App
+
+1. In Visual Studio, set the iOS or Android project as the startup project 
+
+2. In Visual Studio, click "Start Debugging"
+    - If you are having any trouble, see the Setup guides below for your runtime platform
+
+#### iOS Setup
+
+If you are on a Windows PC then you will need to be connected to a macOS build host with the Xamarin tools installed to run and debug the app.
+
+If connected, you will see a Green connection status. Select `iPhoneSimulator` as your target, and then select a Simulator to debug on.
+
+![iOS Setup](https://content.screencast.com/users/JamesMontemagno/folders/Jing/media/a6b32d62-cd3d-41ea-bd16-1bcc1fbe1f9d/2016-07-11_1445.png)
+
+#### Android Setup
+
+Set the MonkeyFinder.Android as the startup project and select your emulator or device to start debugging. With help for deployment head over to our [documentation](https://docs.microsoft.com/xamarin/android/deploy-test/debugging?WT.mc_id=docs-workshop-jamont).
 
 Running the app will result in a list of three monkeys:
 

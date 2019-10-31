@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Collections.Generic;
+using Microsoft.AppCenter.Data;
 
 namespace MonkeyFinder.ViewModel
 {
@@ -40,6 +41,9 @@ namespace MonkeyFinder.ViewModel
 
                 var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
                 var monkeys =  Monkey.FromJson(json);
+
+                //var result = await Data.ListAsync<Monkey>(DefaultPartitions.AppDocuments);
+                //var monkeys = result.CurrentPage.Items.Select(m => m.DeserializedValue);
 
                 Monkeys.Clear();
                 foreach (var monkey in monkeys)
