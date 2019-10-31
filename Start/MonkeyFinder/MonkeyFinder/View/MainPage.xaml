@@ -5,9 +5,12 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:local="clr-namespace:MonkeyFinder"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
-    x:Class="MonkeyFinder.View.MainPage">
-
-
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
+    x:Class="MonkeyFinder.View.MainPage"
+    x:DataType="viewmodel:MonkeysViewModel"
+    Title="Monkeys">
+    
+    <!--Add Controls here-->
+    
 </ContentPage>

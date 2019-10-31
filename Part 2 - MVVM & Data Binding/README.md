@@ -160,7 +160,7 @@ public class BaseViewModel : INotifyPropertyChanged
 public class BaseViewModel : INotifyPropertyChanged
 {
     //...
-     public bool IsBusy
+    public bool IsBusy
     {
         get => isBusy;
         set
@@ -424,23 +424,31 @@ It is now time to build the Xamarin.Forms user interface in `View/MainPage.xaml`
              x:Class="MonkeyFinder.View.MainPage">
 
     <!-- Add this -->
-    <ContentPage.BindingContext>
+    <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
-    </ContentPage.BindingContext>
+    </d:ContentPage.BindingContext>
 
 </ContentPage>
+```
+
+In the code behind for the project we will create a new BindingContext:
+
+```csharp
+public MainPage()
+{
+    InitializeComponent();
+
+    // Add This
+    BindingContext = new MonkeysViewModel();
+}
 ```
 
 2. We can create our first binding on the `ContentPage` by adding the `Title` Property:
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MonkeyFinder"
-             xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
-             x:Class="MonkeyFinder.View.MainPage"
-             Title="{Binding Title}"> <!-- Add this -->
+<ContentPage 
+    Title="{Binding Title}"> <!-- Update this -->
 
     <ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
@@ -453,16 +461,12 @@ It is now time to build the Xamarin.Forms user interface in `View/MainPage.xaml`
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MonkeyFinder"
-             xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
-             x:Class="MonkeyFinder.View.MainPage"
+<ContentPage 
              Title="{Binding Title}">
 
-    <ContentPage.BindingContext>
+    <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
-    </ContentPage.BindingContext>
+    </d:ContentPage.BindingContext>
 
     <!-- Add this -->
     <Grid RowSpacing="0" ColumnSpacing="5">
@@ -482,16 +486,12 @@ It is now time to build the Xamarin.Forms user interface in `View/MainPage.xaml`
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MonkeyFinder"
-             xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
-             x:Class="MonkeyFinder.View.MainPage"
+<ContentPage 
              Title="{Binding Title}">
 
-    <ContentPage.BindingContext>
+    <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
-    </ContentPage.BindingContext>
+    </d:ContentPage.BindingContext>
 
     <!-- Add this -->
     <Grid RowSpacing="0" ColumnSpacing="5">
@@ -518,16 +518,12 @@ It is now time to build the Xamarin.Forms user interface in `View/MainPage.xaml`
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MonkeyFinder"
-             xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
-             x:Class="MonkeyFinder.View.MainPage"
+<ContentPage 
              Title="{Binding Title}">
 
-    <ContentPage.BindingContext>
+    <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
-    </ContentPage.BindingContext>
+    </d:ContentPage.BindingContext>
 
     <Grid RowSpacing="0" ColumnSpacing="5">
         <Grid.RowDefinitions>
@@ -545,7 +541,7 @@ It is now time to build the Xamarin.Forms user interface in `View/MainPage.xaml`
                   Grid.ColumnSpan="2">
             <!-- Add this -->
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:Monkey">
                     <ViewCell>
                          <Frame Visual="Material" 
                                IsClippedToBounds="True"
@@ -581,16 +577,12 @@ It is now time to build the Xamarin.Forms user interface in `View/MainPage.xaml`
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MonkeyFinder"
-             xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
-             x:Class="MonkeyFinder.View.MainPage"
+<ContentPage 
              Title="{Binding Title}">
 
-    <ContentPage.BindingContext>
+    <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
-    </ContentPage.BindingContext>
+    </d:ContentPage.BindingContext>
 
 
     <Grid RowSpacing="0" ColumnSpacing="5">

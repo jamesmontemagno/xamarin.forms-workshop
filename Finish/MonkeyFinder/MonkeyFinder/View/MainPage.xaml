@@ -8,9 +8,11 @@
     xmlns:local="clr-namespace:MonkeyFinder"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    x:DataType="viewmodel:MonkeysViewModel">
 
     <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel />
@@ -35,7 +37,7 @@
                   SeparatorVisibility="None"
                   Grid.ColumnSpan="2">
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:Monkey">
                     <ViewCell>
                         <Frame
                             Margin="10,5" Padding="0"

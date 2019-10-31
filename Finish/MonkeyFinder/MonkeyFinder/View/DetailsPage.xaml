@@ -8,6 +8,7 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    x:DataType="viewmodel:MonkeyDetailsViewModel"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
     mc:Ignorable="d">
