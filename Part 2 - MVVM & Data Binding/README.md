@@ -569,24 +569,31 @@ public MainPage()
                   HasUnevenRows="True"
                   Grid.ColumnSpan="2">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="model:Monkey">
+                 <DataTemplate x:DataType="model:Monkey">
                     <ViewCell>
-                        <Grid ColumnSpacing="10" Padding="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="{Binding Image}"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"
-                                    WidthRequest="60"
-                                    HeightRequest="60"
-                                    Aspect="AspectFill"/>
-                            <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding Name}"/>
-                                <Label Text="{Binding Location}"/>
-                            </StackLayout>
-                        </Grid>
+                         <Frame Visual="Material" 
+                               IsClippedToBounds="True"
+                               BackgroundColor="White"
+                               InputTransparent="True"
+                               Margin="10,5"
+                               Padding="0"
+                               CornerRadius="10"
+                               HeightRequest="125">
+                            <Grid ColumnSpacing="10" Padding="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="125"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Image}"
+                                       Aspect="AspectFill"/>
+                                <StackLayout Grid.Column="1"
+                                             Padding="10"
+                                             VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" FontSize="Large"/>
+                                    <Label Text="{Binding Location}" FontSize="Medium"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
