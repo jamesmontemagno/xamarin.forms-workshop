@@ -482,8 +482,16 @@ public MainPage()
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
-             Title="{Binding Title}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
+    x:Class="MonkeyFinder.View.MainPage"
+    x:DataType="viewmodel:MonkeysViewModel"
+    Title="{Binding Title}">
 
     <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
