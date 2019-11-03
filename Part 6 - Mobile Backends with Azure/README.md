@@ -25,7 +25,12 @@ protected override void OnStart()
 }
 ```
 
-Now, we will provide you will the API keys to fill in and then we will run the apps to see analytics and crash reporting in action!
+
+Fill in the following:
+```csharp
+const string AppCenteriOS = "d0a857ff-843c-458c-90c0-00c24cdccd21";
+const string AppCenterAndroid = "9150e8b5-7788-4951-ab5a-260ae099c669";
+```
 
 #### Data
 
