@@ -19,8 +19,8 @@ And add the
         HasUnevenRows="True"
         Grid.ColumnSpan="2"
         IsPullToRefreshEnabled="True"
-        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-        RefreshCommand="{Binding GetMonkeysCommand}">
+        RefreshCommand="{Binding GetMonkeysCommand}"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}">
 ```
 
 This will enable pull-to-refresh on iOS & Android:
