@@ -38,16 +38,7 @@ public event PropertyChangedEventHandler PropertyChanged;
     - Note: We will call `OnPropertyChanged` whenever a property updates
 
 ```csharp
-public void OnPropertyChanged([CallerMemberName] string name = null)
-{
-
-}
-```
-
-7. Add code to `OnPropertyChanged`:
-
-```csharp
-private void OnPropertyChanged([CallerMemberName] string name = null) =>
+public void OnPropertyChanged([CallerMemberName] string name = null) =>
     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 ```
 
