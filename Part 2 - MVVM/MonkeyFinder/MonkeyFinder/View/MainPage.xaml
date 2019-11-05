@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
+    x:Class="MonkeyFinder.View.MainPage"
+    x:DataType="viewmodel:MonkeysViewModel"
+    Title="Monkeys">
+
+    <ListView>
+        <ListView.ItemsSource>
+            <x:Array Type="{x:Type model:Monkey}">
+                <model:Monkey Name="Baboon" Location="Africa and Asia" Image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Portrait_Of_A_Baboon.jpg/314px-Portrait_Of_A_Baboon.jpg"/>
+                <model:Monkey Name="Capuchin Monkey" Location="Central and South America" Image="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Capuchin_Costa_Rica.jpg/200px-Capuchin_Costa_Rica.jpg"/>
+                <model:Monkey Name="Red-shanked douc" Location="Vietnam" Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/douc.jpg"/>
+            </x:Array>
+        </ListView.ItemsSource>
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="model:Monkey">
+                <ImageCell Text="{Binding Name}"
+                            Detail="{Binding Location}"
+                            ImageSource="{Binding Image}"/>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
+</ContentPage>

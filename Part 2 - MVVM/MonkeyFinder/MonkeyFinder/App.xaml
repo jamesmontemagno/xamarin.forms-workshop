@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MonkeyFinder.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Application resource dictionary -->
+            <Color x:Key="Primary">#FFC107</Color>
+            <Color x:Key="PrimaryDark">#FFA000</Color>
+            <Color x:Key="Accent">#00BCD4</Color>
+            <Style x:Key="ButtonOutline" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+                <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Visual" Value="Material"/>
+            </Style>
+        </ResourceDictionary>     
+    </Application.Resources>
+</Application>
