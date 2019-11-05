@@ -4,23 +4,18 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-    xmlns:local="clr-namespace:MonkeyFinder"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     xmlns:model="clr-namespace:MonkeyFinder.Model"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="{Binding Title}"
-    ios:Page.UseSafeArea="True"
-    mc:Ignorable="d"
-    x:DataType="viewmodel:MonkeysViewModel">
+    x:DataType="viewmodel:MonkeysViewModel"
+    mc:Ignorable="d">
 
     <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel />
     </d:ContentPage.BindingContext>
 
-    <Grid
-        ColumnSpacing="8"
-        RowSpacing="0">
+    <Grid ColumnSpacing="5" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -29,24 +24,28 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
-        <ListView ItemsSource="{Binding Monkeys}"
-                  CachingStrategy="RecycleElement"
-                  ItemSelected="ListView_ItemSelected"
-                  HasUnevenRows="True"
-                  Grid.ColumnSpan="2"
-                  SeparatorVisibility="None"
-                  IsPullToRefreshEnabled="True"
-                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                  RefreshCommand="{Binding GetMonkeysCommand}">
+        <ListView
+            Grid.ColumnSpan="2"
+            HasUnevenRows="True"
+            ItemSelected="ListView_ItemSelected"
+            ItemsSource="{Binding Monkeys}"
+            CachingStrategy="RecycleElement"
+            SeparatorVisibility="None"
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding GetMonkeysCommand}"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
                     <ViewCell>
                         <Frame
-                            Margin="10,5" Padding="0"
-                            BackgroundColor="White" CornerRadius="10"
-                            HeightRequest="125" IsClippedToBounds="True"
+                            Margin="10,5"
+                            Padding="0"
+                            BackgroundColor="White"
+                            CornerRadius="10"
+                            HeightRequest="125"
                             InputTransparent="True"
+                            IsClippedToBounds="True"
+                            HasShadow="True"
                             Visual="Material">
                             <Grid Padding="0" ColumnSpacing="10">
                                 <Grid.ColumnDefinitions>
@@ -55,7 +54,8 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Aspect="AspectFill" Source="{Binding Image}" />
                                 <StackLayout
-                                    Grid.Column="1" Padding="10"
+                                    Grid.Column="1"
+                                    Padding="10"
                                     VerticalOptions="Center">
                                     <Label FontSize="Large" Text="{Binding Name}" />
                                     <Label FontSize="Medium" Text="{Binding Location}" />
@@ -65,31 +65,27 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
         </ListView>
 
         <Button
             Grid.Row="1"
             Grid.Column="0"
-            Grid.ColumnSpan="1"
             Margin="8"
             Command="{Binding GetMonkeysCommand}"
-            Style="{StaticResource ButtonOutline}"
             IsEnabled="{Binding IsNotBusy}"
+            Style="{StaticResource ButtonOutline}"
             Text="Search" />
 
-        <Button
-            Grid.Row="1"
-            Grid.Column="1"
-            Grid.ColumnSpan="1"
-            Margin="8"
-            Command="{Binding GetClosestCommand}"
-            Style="{StaticResource ButtonOutline}"
-            IsEnabled="{Binding IsNotBusy}"
-            Text="Get Closest" />
 
-
-
+        <Button Text="Find Closest" 
+                Command="{Binding GetClosestCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Grid.Row="1"
+                Grid.Column="1"
+                Style="{StaticResource ButtonOutline}"
+                Margin="8"/>
+        
+        
         <ActivityIndicator
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"

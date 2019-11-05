@@ -15,12 +15,9 @@ namespace MonkeyFinder.ViewModel
 {
     public class MonkeysViewModel : BaseViewModel
     {
-        HttpClient httpClient;
-        HttpClient Client => httpClient ?? (httpClient = new HttpClient());
-
-        public ObservableCollection<Monkey> Monkeys { get; }
-        public Command GetMonkeysCommand { get; }
         public Command GetClosestCommand { get; }
+        public Command GetMonkeysCommand { get; }
+        public ObservableCollection<Monkey> Monkeys { get; }
         public MonkeysViewModel()
         {
             Title = "Monkey Finder";
@@ -29,7 +26,9 @@ namespace MonkeyFinder.ViewModel
             GetClosestCommand = new Command(async () => await GetClosestAsync());
         }
 
-    
+        HttpClient httpClient;
+        HttpClient Client => httpClient ?? (httpClient = new HttpClient());
+
         async Task GetMonkeysAsync()
         {
             if (IsBusy)
@@ -39,9 +38,22 @@ namespace MonkeyFinder.ViewModel
             {
                 IsBusy = true;
 
-                var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
-                var monkeys =  Monkey.FromJson(json);
 
+                // If having internet issues, read from disk
+                //string json = null;
+                //var a = System.Reflection.Assembly.GetExecutingAssembly();
+                //using (var resFilestream = a.GetManifestResourceStream("MonkeyFinder.monkeydata.json"))
+                //{
+                //    using (var reader = new System.IO.StreamReader(resFilestream))
+                //        json = await reader.ReadToEndAsync();
+                //}
+
+                // if internet is working
+                var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
+
+                var monkeys = Monkey.FromJson(json);
+
+                // App Center Data
                 //var result = await Data.ListAsync<Monkey>(DefaultPartitions.AppDocuments);
                 //var monkeys = result.CurrentPage.Items.Select(m => m.DeserializedValue);
 
@@ -64,8 +76,10 @@ namespace MonkeyFinder.ViewModel
         {
             if (IsBusy || Monkeys.Count == 0)
                 return;
+
             try
             {
+                // Get cached location, else get real location.
                 var location = await Geolocation.GetLastKnownLocationAsync();
                 if (location == null)
                 {
@@ -76,6 +90,7 @@ namespace MonkeyFinder.ViewModel
                     });
                 }
 
+                // Find closest monkey to us
                 var first = Monkeys.OrderBy(m => location.CalculateDistance(
                     new Location(m.Latitude, m.Longitude), DistanceUnits.Miles))
                     .FirstOrDefault();
@@ -90,7 +105,5 @@ namespace MonkeyFinder.ViewModel
                 await Application.Current.MainPage.DisplayAlert("Error!", ex.Message, "OK");
             }
         }
-
-
     }
 }

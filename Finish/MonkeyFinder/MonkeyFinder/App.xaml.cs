@@ -1,10 +1,10 @@
-﻿using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
+﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using Microsoft.AppCenter.Data;
+using Microsoft.AppCenter;
 using MonkeyFinder.View;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.AppCenter.Data;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MonkeyFinder

@@ -2,7 +2,7 @@
 //
 //    using MonkeyFinder.Model;
 //
-//    var monkeys = Monkeys.FromJson(jsonString);
+//    var monkeys = Monkey.FromJson(jsonString);
 
 using System;
 using System.Globalization;
@@ -23,7 +23,7 @@ namespace MonkeyFinder.Model
         public string Details { get; set; }
 
         [JsonProperty("Image")]
-        public Uri Image { get; set; }
+        public string Image { get; set; }
 
         [JsonProperty("Population")]
         public long Population { get; set; }
@@ -33,19 +33,16 @@ namespace MonkeyFinder.Model
 
         [JsonProperty("Longitude")]
         public double Longitude { get; set; }
-
-        [JsonProperty("id")]
-        public string Id { get; set; }
     }
 
     public partial class Monkey
     {
-        public static Monkey[] FromJson(string json) => JsonConvert.DeserializeObject<Monkey[]>(json, Converter.Settings);
+        public static Monkey[] FromJson(string json) => JsonConvert.DeserializeObject<Monkey[]>(json, MonkeyFinder.Model.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this Monkey[] self) => JsonConvert.SerializeObject(self, Converter.Settings);
+        public static string ToJson(this Monkey[] self) => JsonConvert.SerializeObject(self, MonkeyFinder.Model.Converter.Settings);
     }
 
     internal static class Converter
@@ -54,9 +51,10 @@ namespace MonkeyFinder.Model
         {
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
             DateParseHandling = DateParseHandling.None,
-            Converters = {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
+            Converters =
+        {
+            new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+        },
         };
     }
 }
