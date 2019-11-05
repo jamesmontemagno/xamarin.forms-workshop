@@ -279,6 +279,27 @@ async Task GetMonkeysAsync()
 
 Our main method for getting data is now complete!
 
+
+### Internet issues?
+
+If you are having interent issues, don't worry as we can load an embedded resource with all the monkey data. Instead of the HttpClient call use the following code:
+
+```csharp
+// If having internet issues, read from disk
+string json = null;
+var a = System.Reflection.Assembly.GetExecutingAssembly();
+using (var resFilestream = a.GetManifestResourceStream("MonkeyFinder.monkeydata.json"))
+{
+  using (var reader = new System.IO.StreamReader(resFilestream))
+      json = await reader.ReadToEndAsync();
+}
+
+// if internet is working
+//var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
+
+var monkeys = Monkey.FromJson(json);
+ ```
+
 #### Create GetMonkeys Command
 
 Instead of invoking this method directly, we will expose it with a `Command`. A `Command` has an interface that knows what method to invoke and has an optional way of describing if the Command is enabled.
