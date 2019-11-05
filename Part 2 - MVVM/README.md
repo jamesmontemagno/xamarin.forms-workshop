@@ -38,16 +38,7 @@ public event PropertyChangedEventHandler PropertyChanged;
     - Note: We will call `OnPropertyChanged` whenever a property updates
 
 ```csharp
-private void OnPropertyChanged([CallerMemberName] string name = null)
-{
-
-}
-```
-
-7. Add code to `OnPropertyChanged`:
-
-```csharp
-private void OnPropertyChanged([CallerMemberName] string name = null) =>
+public void OnPropertyChanged([CallerMemberName] string name = null) =>
     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 ```
 
@@ -288,6 +279,27 @@ async Task GetMonkeysAsync()
 
 Our main method for getting data is now complete!
 
+
+### Internet issues?
+
+If you are having interent issues, don't worry as we can load an embedded resource with all the monkey data. Instead of the HttpClient call use the following code:
+
+```csharp
+// If having internet issues, read from disk
+string json = null;
+var a = System.Reflection.Assembly.GetExecutingAssembly();
+using (var resFilestream = a.GetManifestResourceStream("MonkeyFinder.monkeydata.json"))
+{
+  using (var reader = new System.IO.StreamReader(resFilestream))
+      json = await reader.ReadToEndAsync();
+}
+
+// if internet is working
+//var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
+
+var monkeys = Monkey.FromJson(json);
+ ```
+
 #### Create GetMonkeys Command
 
 Instead of invoking this method directly, we will expose it with a `Command`. A `Command` has an interface that knows what method to invoke and has an optional way of describing if the Command is enabled.
@@ -329,7 +341,16 @@ It is now time to build the Xamarin.Forms user interface in `View/MainPage.xaml`
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
+    x:Class="MonkeyFinder.View.MainPage"
+    x:DataType="viewmodel:MonkeysViewModel"
+    Title="Monkeys">
 
     <!-- Add this -->
     <d:ContentPage.BindingContext>
@@ -355,7 +376,15 @@ public MainPage()
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
+    x:Class="MonkeyFinder.View.MainPage"
+    x:DataType="viewmodel:MonkeysViewModel"
     Title="{Binding Title}"> <!-- Update this -->
 
     <ContentPage.BindingContext>
@@ -369,8 +398,16 @@ public MainPage()
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
-             Title="{Binding Title}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
+    x:Class="MonkeyFinder.View.MainPage"
+    x:DataType="viewmodel:MonkeysViewModel"
+    Title="{Binding Title}">
 
     <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
@@ -394,8 +431,16 @@ public MainPage()
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
-             Title="{Binding Title}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
+    x:Class="MonkeyFinder.View.MainPage"
+    x:DataType="viewmodel:MonkeysViewModel"
+    Title="{Binding Title}">
 
     <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
@@ -424,8 +469,16 @@ public MainPage()
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
-             Title="{Binding Title}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
+    x:Class="MonkeyFinder.View.MainPage"
+    x:DataType="viewmodel:MonkeysViewModel"
+    Title="{Binding Title}">
 
     <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel/>
@@ -451,6 +504,7 @@ public MainPage()
                                IsClippedToBounds="True"
                                BackgroundColor="White"
                                InputTransparent="True"
+                               HasShadow="True"
                                Margin="10,5"
                                Padding="0"
                                CornerRadius="10"
@@ -517,6 +571,7 @@ public MainPage()
                                IsClippedToBounds="True"
                                BackgroundColor="White"
                                InputTransparent="True"
+                               HasShadow="True"
                                Margin="10,5"
                                Padding="0"
                                CornerRadius="10"
@@ -557,7 +612,15 @@ public MainPage()
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    xmlns:model="clr-namespace:MonkeyFinder.Model"
+    x:Class="MonkeyFinder.View.MainPage"
+    x:DataType="viewmodel:MonkeysViewModel"
              Title="{Binding Title}">
 
     <d:ContentPage.BindingContext>
@@ -583,6 +646,7 @@ public MainPage()
                                IsClippedToBounds="True"
                                BackgroundColor="White"
                                InputTransparent="True"
+                               HasShadow="True"
                                Margin="10,5"
                                Padding="0"
                                CornerRadius="10"
