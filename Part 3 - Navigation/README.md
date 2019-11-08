@@ -26,7 +26,7 @@ After:
 
 
 2. In `MainPage.xaml.cs`, create a method called `ListView_ItemSelected`:
-    - This code checks to see if the selected item is non-null and then use the built in `Navigation` API to push a new page and deselect the item.
+    - This code checks to see if the selected item is non-null and then uses the built in `Navigation` API to push a new page and deselect the item.
 
 ```csharp
 async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -43,7 +43,7 @@ async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
 
 ### ViewModel for Details
 
-1. Inside of our `ViewModel/MonkeyDetailsViewModel.cs` will house our logic for assigning the monkey to the view model.
+1. Inside of our `ViewModel/MonkeyDetailsViewModel.cs`, we will house our logic for assigning the monkey to the view model.
 
 Let's first create a bindable property for the `Monkey`:
 
