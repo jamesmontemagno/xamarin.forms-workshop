@@ -3,7 +3,7 @@ In Part 2 we will introduce full data binding with MVVM and retrieve the monkeys
 
 ### Implementing INotifyPropertyChanged
 
-*INotifyPropertyChanged* is important for data binding in MVVM Frameworks. This is an interface that, when implemented, lets our view know about changes to the model. We will implement it once in our `BaseViewModel` so all other view models that we can create can inherit from it.
+*INotifyPropertyChanged* is important for data binding in MVVM Frameworks. This is an interface that when implemented, lets our view know about changes to the model. We will implement it once in our `BaseViewModel` so all other view models that we create can inherit from it.
 
 1. In Visual Studio, open `ViewModel/BaseViewModel.cs`
 2. In `BaseViewModel.cs`, implement INotifyPropertyChanged by changing this
@@ -141,7 +141,7 @@ public class MonkeysViewModel : BaseViewModel
 
 We are ready to create a method named `GetMonkeysAsync` which will retrieve the monkey data from the internet. We will first implement this with a simple HTTP request using HttpClient!
 
-1. In `MonkeysViewModel.cs`, create a method named `GetMonkeysAsync` with that returns `async Task`:
+1. In `MonkeysViewModel.cs`, create a method named `GetMonkeysAsync` that returns `async Task`:
 
 ```csharp
 public class MonkeysViewModel : BaseViewModel
