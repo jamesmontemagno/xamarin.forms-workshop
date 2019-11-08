@@ -6,11 +6,10 @@ Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com
 
 Slides can be downloaded from [OneDrive](https://1drv.ms/u/s!AkidfXMX2kfFswzYSh9qdmGqMhxt?e=oyjYUK) for each part of the workshop.
 
-
 ## Setup Guide
-Follow our simple [setup guide](https://docs.microsoft.com/xamarin/get-started/installation/index?WT.mc_id=docs-workshop-jamont) to ensure you have Visual Studio 2019 and Xamarin setup and ready to deploy.
+Hey there! This workshop will be a hands on and a bring your own device workshop. You can develop on PC or Mac and all you will need to do is install Visual Studio 2019 or Visual Studio for Mac 2019 with the Xamarin workload.
 
-Hey there! This workshop will be hands on and a bring your own device workshop. You can develop on PC or Mac and all you will need to do is install Visual Studio 2019 or Visual Studio for Mac 2019 with the Xamarin workload.
+Follow our simple [setup guide](https://docs.microsoft.com/xamarin/get-started/installation/index?WT.mc_id=docs-workshop-jamont) to ensure you have Visual Studio 2019 and Xamarin setup and ready to deploy.
 
 Before the conference I recommend going through the quick 10 minute [Xamarin Tutorial](https://dotnet.microsoft.com/learn/xamarin/hello-world-tutorial/intro?WT.mc_id=docs-workshop-jamont) that will guide you through installation and also ensuring everything is configured correct.
 

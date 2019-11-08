@@ -1,6 +1,6 @@
 ## Adding Pull-to-Refresh
 
-The Xamarin.Forms `ListView` has native support for pull-to-refresh. Additionally, a `RefreshView` has been added in Xamarin.Forms 4.3 that enables developers to add pull-to-refresh other controls such as ScrollView & CollectionView. Let's use the built-in pull-to-refresh feature of the `ListView`.
+The Xamarin.Forms `ListView` has native support for pull-to-refresh. Additionally, a `RefreshView` has been added in Xamarin.Forms 4.3 that enables developers to add pull-to-refresh to other controls such as ScrollView & CollectionView. Let's use the built-in pull-to-refresh feature of the `ListView`.
 
 Update the `ListView` logic from:
 

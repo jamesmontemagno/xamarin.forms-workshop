@@ -1,6 +1,6 @@
 ## Part 6 Mobile Backends with Azure
 
-Azure provides every service that any app could need. When it comes to mobile [App Center](https://appcenter.ms) provides a set of mobile services that started with build, test, and distribution. Now, App Center provides full mobile as a back end service including analytics, crash reporting, push notifications, authentication, and data! In Part 6 we will integrate the App Center SDK to add analytics and crash reporting. Then we will update our code to synchronize monkeys from the App Center.
+Azure provides every service that any app could need. When it comes to mobile, [App Center](https://appcenter.ms) provides a set of mobile services that started with build, test, and distribution. Now, App Center provides full mobile as a backend services, including analytics, crash reporting, push notifications, authentication, and data! In Part 6 we will integrate the App Center SDK to add analytics and crash reporting. Then we will update our code to synchronize monkeys from the App Center.
 
 ### App Center SDKs
 

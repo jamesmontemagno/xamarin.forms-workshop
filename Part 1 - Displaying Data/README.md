@@ -5,9 +5,9 @@ In Part 1 we will go over what makes up a Xamarin.Forms project and how to displ
 
 ### Open Solution in Visual Studio
 
-1. Open **Start/MonkeyFinder.sln**
+1. Open **Part 1 - Displaying Data/MonkeyFinder.sln**
 
-This MonkeyFinder contains 4 projects
+This MonkeyFinder contains 3 projects:
 
 * MonkeyFinder  - Shared .NET Standard project that will have all shared code (model, views, view models, and services)
 * MonkeyFinder.Android - Xamarin.Android application
@@ -21,13 +21,13 @@ The **MonkeyFinder** project also has blank code files and XAML pages that we wi
 
 All projects have the required NuGet packages already installed, so there will be no need to install additional packages during the Hands on Lab. The first thing that we must do is restore all of the NuGet packages from the internet.
 
-1. **Right-click** on the **Solution** and selecting **Restore NuGet packages...**
+1. **Right-click** on the **Solution** and select **Restore NuGet packages...**
 
 ![Restore NuGets](../Art/RestoreNuGets.PNG)
 
 ### Model
 
-We will download details about the monkey and will need a class to represent it.
+We will be downloading details about the monkey and will need a class to represent it.
 
 We can easily convert our json file located at [montemagno.com/monkeys.json](https://montemagno.com/monkeys.json) by using [quicktype.io](https://app.quicktype.io/) and pasting the raw json into quicktype to generate our C# classes. Ensure that you set the Name to `Monkey` and the generated namespace to `MonkeyFinder.Model` and select C#. Here is a direct URL to the code: [https://app.quicktype.io?share=W43y1rUvk1FBQa5RsBC0](https://app.quicktype.io?share=W43y1rUvk1FBQa5RsBC0)
 
@@ -93,7 +93,7 @@ This will allow us to more easily display data in the next step.
 
 ### Displaying Data
 
-We can display hard coded data of any data type in a `ListView` in our `MainPage.xaml`. This will allow us to use built in data cells such as the `ImageCell` that will automatically display text information and images in the `ListView`. Add the following into the MainPage.xaml's `ContentPage`:
+We can display hard coded data of any data type in a `ListView` in our `MainPage.xaml`. This will allow us to use built-in data cells such as the `ImageCell`, that will automatically display text information and images in the `ListView`. Add the following into the MainPage.xaml's `ContentPage`:
 
 ```xml
 <ListView>
