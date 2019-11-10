@@ -315,9 +315,7 @@ public class MonkeysViewModel : BaseViewModel
 }
 ```
 
-2. Inside of the `MonkeysViewModel` constructor, create the `GetMonkeysCommand` and pass it two methods
-    - One to invoke when the command is executed
-    - Another that determines if the command is enabled. Both methods can be implemented as lambda expressions as shown below:
+2. Inside of the `MonkeysViewModel` constructor, create the `GetMonkeysCommand` and pass in the method we created:
 
 ```csharp
 public class MonkeysViewModel : BaseViewModel
