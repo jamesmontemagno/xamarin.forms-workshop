@@ -15,58 +15,47 @@
         <viewmodel:MonkeysViewModel />
     </d:ContentPage.BindingContext>
 
-    <Grid ColumnSpacing="5" RowSpacing="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <ListView
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+        <RefreshView
             Grid.ColumnSpan="2"
-            HasUnevenRows="True"
-            ItemSelected="ListView_ItemSelected"
-            ItemsSource="{Binding Monkeys}"
-            CachingStrategy="RecycleElement"
-            SeparatorVisibility="None"
-            IsPullToRefreshEnabled="True"
-            RefreshCommand="{Binding GetMonkeysCommand}"
+            Command="{Binding GetMonkeysCommand}"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="model:Monkey">
-                    <ViewCell>
-                        <Frame
-                            Margin="10,5"
-                            Padding="0"
-                            BackgroundColor="White"
-                            CornerRadius="10"
-                            HeightRequest="125"
-                            InputTransparent="True"
-                            IsClippedToBounds="True"
-                            HasShadow="True"
-                            Visual="Material">
-                            <Grid Padding="0" ColumnSpacing="10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="125" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Image Aspect="AspectFill" Source="{Binding Image}" />
-                                <StackLayout
-                                    Grid.Column="1"
-                                    Padding="10"
-                                    VerticalOptions="Center">
-                                    <Label FontSize="Large" Text="{Binding Name}" />
-                                    <Label FontSize="Medium" Text="{Binding Location}" />
-                                </StackLayout>
-                            </Grid>
-                        </Frame>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
+            <CollectionView ItemsSource="{Binding Monkeys}" 
+                            SelectionMode="Single"
+                            SelectionChanged="CollectionView_SelectionChanged">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="1" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Monkey">
+                        <Grid>
+                            <Frame
+                                Margin="10,5"
+                                HeightRequest="125"
+                                Style="{StaticResource CardView}">
+                                <Grid
+                                    Padding="0"
+                                    ColumnDefinitions="125,*"
+                                    ColumnSpacing="10">
+                                    <Image Aspect="AspectFill" Source="{Binding Image}" />
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        Padding="10"
+                                        VerticalOptions="Center">
+                                        <Label FontSize="Large" Text="{Binding Name}" />
+                                        <Label FontSize="Medium" Text="{Binding Location}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
         <Button
             Grid.Row="1"
             Grid.Column="0"
@@ -77,15 +66,16 @@
             Text="Search" />
 
 
-        <Button Text="Find Closest" 
-                Command="{Binding GetClosestCommand}"
-                IsEnabled="{Binding IsNotBusy}"
-                Grid.Row="1"
-                Grid.Column="1"
-                Style="{StaticResource ButtonOutline}"
-                Margin="8"/>
-        
-        
+        <Button
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="8"
+            Command="{Binding GetClosestCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Style="{StaticResource ButtonOutline}"
+            Text="Find Closest" />
+
+
         <ActivityIndicator
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"

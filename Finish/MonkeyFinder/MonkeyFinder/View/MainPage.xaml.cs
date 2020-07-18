@@ -1,5 +1,6 @@
 ﻿using MonkeyFinder.Model;
 using MonkeyFinder.ViewModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace MonkeyFinder.View
@@ -12,15 +13,15 @@ namespace MonkeyFinder.View
             BindingContext = new MonkeysViewModel();
         }
 
-        async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var monkey = e.SelectedItem as Monkey;
+            var monkey = e.CurrentSelection.FirstOrDefault() as Monkey;
             if (monkey == null)
                 return;
 
             await Navigation.PushAsync(new DetailsPage(monkey));
 
-            ((ListView)sender).SelectedItem = null;
+            ((CollectionView)sender).SelectedItem = null;
         }
     }
 }
