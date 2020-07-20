@@ -9,6 +9,10 @@
     Title="{Binding Title}"
     x:DataType="viewmodel:MonkeyDetailsViewModel"
     mc:Ignorable="d">
+    <!--  Helps with intellisense, creates a mock ViewModel to use  -->
+    <d:ContentPage.BindingContext>
+        <viewmodel:MonkeyDetailsViewModel />
+    </d:ContentPage.BindingContext>
     <ScrollView>
         <StackLayout>
             <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="100, Auto">
@@ -67,11 +71,11 @@
                 WidthRequest="200" />
 
             <Line
-                Stroke="#DDDDDD"
                 Aspect="Fill"
+                Stroke="#DDDDDD"
                 X2="100"
                 Y1="1"
-                Y2="1"/>
+                Y2="1" />
 
             <Label Margin="10" Text="{Binding Monkey.Details}" />
         </StackLayout>

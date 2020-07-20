@@ -8,6 +8,8 @@ using MonkeyFinder.Model;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MonkeyFinder.ViewModel
 {
@@ -23,10 +25,6 @@ namespace MonkeyFinder.ViewModel
             GetMonkeysCommand = new Command(async () => await GetMonkeysAsync());
             GetClosestCommand = new Command(async () => await GetClosestAsync());
         }
-
-        HttpClient httpClient;
-        HttpClient Client => httpClient ?? (httpClient = new HttpClient());
-
         async Task GetMonkeysAsync()
         {
             if (IsBusy)
@@ -47,10 +45,10 @@ namespace MonkeyFinder.ViewModel
                 //}
 
                 // if internet is working
-                var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
+                var client = new HttpClient();
+                var json = await client.GetStringAsync("https://montemagno.com/monkeys.json");
 
-                var monkeys = Monkey.FromJson(json);
-
+                var monkeys = JsonConvert.DeserializeObject<List<Monkey>>(json);
                 
                 Monkeys.Clear();
                 foreach (var monkey in monkeys)

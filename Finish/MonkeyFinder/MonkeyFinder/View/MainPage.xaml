@@ -11,6 +11,7 @@
     x:DataType="viewmodel:MonkeysViewModel"
     mc:Ignorable="d">
 
+    <!--  Helps with intellisense, creates a mock ViewModel to use  -->
     <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel />
     </d:ContentPage.BindingContext>
@@ -24,23 +25,18 @@
             Grid.ColumnSpan="2"
             Command="{Binding GetMonkeysCommand}"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-            <CollectionView ItemsSource="{Binding Monkeys}" 
-                            SelectionMode="Single"
-                            SelectionChanged="CollectionView_SelectionChanged">
+            <CollectionView
+                ItemsSource="{Binding Monkeys}"
+                SelectionChanged="CollectionView_SelectionChanged"
+                SelectionMode="Single">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="1" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Monkey">
-                        <Grid>
-                            <Frame
-                                Margin="10,5"
-                                HeightRequest="125"
-                                Style="{StaticResource CardView}">
-                                <Grid
-                                    Padding="0"
-                                    ColumnDefinitions="125,*"
-                                    ColumnSpacing="10">
+                        <Grid Padding="10,5">
+                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                                <Grid Padding="0" ColumnDefinitions="125,*">
                                     <Image Aspect="AspectFill" Source="{Binding Image}" />
                                     <StackLayout
                                         Grid.Column="1"
