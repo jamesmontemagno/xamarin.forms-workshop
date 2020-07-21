@@ -9,4 +9,6 @@
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="Monkeys"
     x:DataType="viewmodel:MonkeysViewModel"
-    mc:Ignorable="d" />
+    mc:Ignorable="d">
+    
+</ContentPage>
