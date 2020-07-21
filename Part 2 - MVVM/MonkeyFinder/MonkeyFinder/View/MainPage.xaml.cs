@@ -10,7 +10,6 @@ namespace MonkeyFinder.View
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MonkeysViewModel();
         }
     }
 }
