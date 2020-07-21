@@ -4,7 +4,7 @@ using Microsoft.AppCenter;
 using MonkeyFinder.View;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Microsoft.AppCenter.Data;
+using Device = Xamarin.Forms.Device;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MonkeyFinder
@@ -13,6 +13,9 @@ namespace MonkeyFinder
     {
         public App()
         {
+
+            Device.SetFlags(new string[] { "Shapes_Experimental" });
+
             InitializeComponent();
 
             MainPage = new NavigationPage(new MainPage())
@@ -31,7 +34,7 @@ namespace MonkeyFinder
             {
                 AppCenter.Start($"ios={AppCenteriOS};" +
                       $"android={AppCenterAndroid}",
-                      typeof(Analytics), typeof(Crashes), typeof(Data));
+                      typeof(Analytics), typeof(Crashes));
             }
         }
 

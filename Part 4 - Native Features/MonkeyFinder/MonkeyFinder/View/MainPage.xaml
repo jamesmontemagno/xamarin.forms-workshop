@@ -11,42 +11,26 @@
     x:DataType="viewmodel:MonkeysViewModel"
     mc:Ignorable="d">
 
+    <!--  Helps with intellisense, creates a mock ViewModel to use  -->
     <d:ContentPage.BindingContext>
         <viewmodel:MonkeysViewModel />
     </d:ContentPage.BindingContext>
 
-    <Grid ColumnSpacing="5" RowSpacing="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <ListView
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+        <CollectionView
             Grid.ColumnSpan="2"
-            HasUnevenRows="True"
-            ItemSelected="ListView_ItemSelected"
-            ItemsSource="{Binding Monkeys}">
-            <ListView.ItemTemplate>
+            ItemsSource="{Binding Monkeys}"
+            SelectionChanged="CollectionView_SelectionChanged"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
-                    <ViewCell>
-                        <Frame
-                            Margin="10,5"
-                            Padding="0"
-                            BackgroundColor="White"
-                            CornerRadius="10"
-                            HeightRequest="125"
-                            InputTransparent="True"
-                            IsClippedToBounds="True"
-                            HasShadow="True"
-                            Visual="Material">
-                            <Grid Padding="0" ColumnSpacing="10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="125" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                    <Grid Padding="10,5">
+                        <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                            <Grid Padding="0" ColumnDefinitions="125,*">
                                 <Image Aspect="AspectFill" Source="{Binding Image}" />
                                 <StackLayout
                                     Grid.Column="1"
@@ -57,11 +41,10 @@
                                 </StackLayout>
                             </Grid>
                         </Frame>
-                    </ViewCell>
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Button
             Grid.Row="1"
             Grid.Column="0"
@@ -72,7 +55,6 @@
             Text="Search" />
 
 
-        <!--  Add this  -->
         <ActivityIndicator
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"

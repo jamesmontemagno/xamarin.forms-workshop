@@ -1,12 +1,8 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using ImageCircle.Forms.Plugin.Droid;
 
 namespace MonkeyFinder.Droid
 {
@@ -20,11 +16,9 @@ namespace MonkeyFinder.Droid
 
             base.OnCreate(savedInstanceState);
 
-            ImageCircleRenderer.Init();
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
-            Android.Glide.Forms.Init(this);
 
             LoadApplication(new App());
         }

@@ -18,6 +18,5 @@ namespace MonkeyFinder.ViewModel
             : this()
         {
         }
-    
     }
 }

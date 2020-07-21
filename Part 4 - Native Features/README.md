@@ -1,6 +1,6 @@
 ## Accessing Native Features
 
-In Part 4 we will use Xamarin.Essentials to find the closest monkey to us and also open a map with the Monkeys location.
+In Part 4, we will use Xamarin.Essentials to find the closest monkey to us and also open a map with the Monkeys location.
 
 ### Find Closest Monkey!
 
@@ -167,7 +167,7 @@ Under the monkey's name, let's add a button that calls the `OpenMapCommand`.
         Margin="8"
         Style="{StaticResource ButtonOutline}"/>
 
-<BoxView HeightRequest="1" Color="#DDDDDD"/>
+<Line Aspect="Fill" Stroke="#DDDDDD" X2="100" Y1="1" Y2="1" />
 
 <Label Text="{Binding Monkey.Details}" Margin="10"/>
 ```

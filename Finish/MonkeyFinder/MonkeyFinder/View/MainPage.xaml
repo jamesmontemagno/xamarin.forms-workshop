@@ -32,6 +32,14 @@
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="1" />
                 </CollectionView.ItemsLayout>
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="100">
+                        <Image
+                            HorizontalOptions="CenterAndExpand"
+                            Source="nodata.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Monkey">
                         <Grid Padding="10,5">

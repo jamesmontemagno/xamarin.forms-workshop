@@ -11,7 +11,8 @@ This MonkeyFinder contains 3 projects:
 
 * MonkeyFinder  - Shared .NET Standard project that will have all shared code (model, views, view models, and services)
 * MonkeyFinder.Android - Xamarin.Android application
-* MonkeyFinder.iOS - Xamarin.iOS application (requires Visual Studio for Mac or a macOS build host)
+* MonkeyFinder.iOS - Xamarin.iOS application (requires Visual Studio for Mac or a macOS build host or an iPhone with Developer Account)
+* MonkeyFinder.UWP - UWP application (requires Visual Studio on Windows)
 
 ![Solution](../Art/Solution.PNG)
 
@@ -29,89 +30,68 @@ All projects have the required NuGet packages already installed, so there will b
 
 We will be downloading details about the monkey and will need a class to represent it.
 
-We can easily convert our json file located at [montemagno.com/monkeys.json](https://montemagno.com/monkeys.json) by using [quicktype.io](https://app.quicktype.io/) and pasting the raw json into quicktype to generate our C# classes. Ensure that you set the Name to `Monkey` and the generated namespace to `MonkeyFinder.Model` and select C#. Here is a direct URL to the code: [https://app.quicktype.io?share=W43y1rUvk1FBQa5RsBC0](https://app.quicktype.io?share=W43y1rUvk1FBQa5RsBC0)
+![Converting json to c# classes](../Art/Convert.PNG)
 
-![](../Art/QuickType.PNG)
+We can easily convert our json file located at [montemagno.com/monkeys.json](https://montemagno.com/monkeys.json) by using [json2csharp.com](https://json2csharp.com) and pasting the raw json into quicktype to generate our C# classes. Ensure that you set the Name to `Monkey` and the generated namespace to `MonkeyFinder.Model` and select C#. 
 
 1. Open `Model/Monkey.cs`
-2. In `Monkey.cs`, copy/paste the following:
+2. In `Monkey.cs`, copy/paste the properties:
 
 ```csharp
-public partial class Monkey
-{
-    [JsonProperty("Name")]
-    public string Name { get; set; }
-
-    [JsonProperty("Location")]
-    public string Location { get; set; }
-
-    [JsonProperty("Details")]
-    public string Details { get; set; }
-
-    [JsonProperty("Image")]
-    public string Image { get; set; }
-
-    [JsonProperty("Population")]
-    public long Population { get; set; }
-
-    [JsonProperty("Latitude")]
-    public double Latitude { get; set; }
-
-    [JsonProperty("Longitude")]
-    public double Longitude { get; set; }
-}
-
-public partial class Monkey
-{
-    public static Monkey[] FromJson(string json) => JsonConvert.DeserializeObject<Monkey[]>(json, MonkeyFinder.Model.Converter.Settings);
-}
-
-public static class Serialize
-{
-    public static string ToJson(this Monkey[] self) => JsonConvert.SerializeObject(self, MonkeyFinder.Model.Converter.Settings);
-}
-
-internal static class Converter
-{
-    public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-    {
-        MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-        DateParseHandling = DateParseHandling.None,
-        Converters =
-        {
-            new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-        },
-    };
+public class Monkey
+{        
+    public string Name { get; set; } 
+    public string Location { get; set; } 
+    public string Details { get; set; } 
+    public string Image { get; set; } 
+    public int Population { get; set; } 
+    public double Latitude { get; set; } 
+    public double Longitude { get; set; } 
 }
 ```
 
-One key difference is that we will change:
-
-`public Uri Image {get;set;}` to `public string Image {get;set;}`
-
-This will allow us to more easily display data in the next step.
-
 ### Displaying Data
 
-We can display hard coded data of any data type in a `ListView` in our `MainPage.xaml`. This will allow us to use built-in data cells such as the `ImageCell`, that will automatically display text information and images in the `ListView`. Add the following into the MainPage.xaml's `ContentPage`:
+We can display hard coded data of any data type in a `CollectionView` in our `MainPage.xaml`. This will allow us to build out our user interface by setting the `ItemTemplate` with some simple images and labels. Add the following into the MainPage.xaml's `ContentPage`:
 
 ```xml
-<ListView>
-    <ListView.ItemsSource>
+<CollectionView>
+    <CollectionView.ItemsSource>
         <x:Array Type="{x:Type model:Monkey}">
-            <model:Monkey Name="Baboon" Location="Africa and Asia" Image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Portrait_Of_A_Baboon.jpg/314px-Portrait_Of_A_Baboon.jpg"/>
-            <model:Monkey Name="Capuchin Monkey" Location="Central and South America" Image="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Capuchin_Costa_Rica.jpg/200px-Capuchin_Costa_Rica.jpg"/>
-            <model:Monkey Name="Red-shanked douc" Location="Vietnam" Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/douc.jpg"/>
+            <model:Monkey
+                Name="Baboon"
+                Image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Portrait_Of_A_Baboon.jpg/314px-Portrait_Of_A_Baboon.jpg"
+                Location="Africa and Asia" />
+            <model:Monkey
+                Name="Capuchin Monkey"
+                Image="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Capuchin_Costa_Rica.jpg/200px-Capuchin_Costa_Rica.jpg"
+                Location="Central and South America" />
+            <model:Monkey
+                Name="Red-shanked douc"
+                Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/douc.jpg"
+                Location="Vietnam" />
         </x:Array>
-    </ListView.ItemsSource>
-    <ListView.ItemTemplate>
+    </CollectionView.ItemsSource>
+    <CollectionView.ItemTemplate>
         <DataTemplate x:DataType="model:Monkey">
-            <ImageCell Text="{Binding Name}"
-                            Detail="{Binding Location}"
-                            ImageSource="{Binding Image}"/>
+            <StackLayout Padding="10" Orientation="Horizontal">
+                <Image
+                    Aspect="AspectFill"
+                    HeightRequest="100"
+                    Source="{Binding Image}"
+                    WidthRequest="100" />
+                <Label VerticalOptions="Center">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0} | {1}">
+                            <Binding Path="Name" />
+                            <Binding Path="Location" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </StackLayout>
         </DataTemplate>
-    </ListView.ItemTemplate>
-</ListView>
+    </CollectionView.ItemTemplate>
+</CollectionView>
 ```
 
 

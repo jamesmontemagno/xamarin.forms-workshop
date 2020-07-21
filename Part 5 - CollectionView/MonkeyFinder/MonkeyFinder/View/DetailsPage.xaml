@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MonkeyFinder.View.DetailsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    Title="{Binding Title}"
+    x:DataType="viewmodel:MonkeyDetailsViewModel"
+    mc:Ignorable="d">
+    <!--  Helps with intellisense, creates a mock ViewModel to use  -->
+    <d:ContentPage.BindingContext>
+        <viewmodel:MonkeyDetailsViewModel />
+    </d:ContentPage.BindingContext>
+    <ScrollView>
+        <StackLayout>
+            <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="100, Auto">
+                <Rectangle
+                    Grid.ColumnSpan="3"
+                    BackgroundColor="{StaticResource Primary}"
+                    HeightRequest="100"
+                    HorizontalOptions="FillAndExpand" />
+                <StackLayout
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Margin="0,50,0,0">
+
+                    <Image
+                        Aspect="AspectFill"
+                        HeightRequest="100"
+                        Source="{Binding Monkey.Image}"
+                        VerticalOptions="Center"
+                        WidthRequest="100">
+                        <Image.Clip>
+                            <EllipseGeometry
+                                Center="50,50"
+                                RadiusX="50"
+                                RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                </StackLayout>
+
+                <Label
+                    Grid.Row="1"
+                    Margin="10"
+                    FontSize="Micro"
+                    HorizontalOptions="Center"
+                    Text="{Binding Monkey.Location}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="10"
+                    FontSize="Micro"
+                    HorizontalOptions="Center"
+                    Text="{Binding Monkey.Population}" />
+            </Grid>
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                Text="{Binding Monkey.Name}" />
+
+            <Button
+                Margin="8"
+                Command="{Binding OpenMapCommand}"
+                HorizontalOptions="Center"
+                Style="{StaticResource ButtonOutline}"
+                Text="Show on Map"
+                WidthRequest="200" />
+
+            <Line
+                Aspect="Fill"
+                Stroke="#DDDDDD"
+                X2="100"
+                Y1="1"
+                Y2="1" />
+
+            <Label Margin="10" Text="{Binding Monkey.Details}" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
