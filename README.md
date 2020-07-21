@@ -1,4 +1,4 @@
-# Xamarin.Forms - Hands On Lab
+# Xamarin.Forms - Workshop
 
 Today we will build a cloud connected [Xamarin.Forms](https://docs.microsoft.com/xamarin?WT.mc_id=docs-workshop-jamont) application that will display a list of Monkeys from around the world. We will start by building the business logic backend that pulls down json-ecoded data from a RESTful endpoint. We will then leverage [Xamarin.Essentials](https://docs.microsoft.com/xamarin/essentials/index?WT.mc_id=docs-workshop-jamont) to find the closest monkey to us and also show the monkey on a map.
 
