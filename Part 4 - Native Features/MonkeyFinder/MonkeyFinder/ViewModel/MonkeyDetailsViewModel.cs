@@ -11,6 +11,7 @@ namespace MonkeyFinder.ViewModel
     {
         public MonkeyDetailsViewModel()
         {
+           
         }
 
         public MonkeyDetailsViewModel(Monkey monkey)

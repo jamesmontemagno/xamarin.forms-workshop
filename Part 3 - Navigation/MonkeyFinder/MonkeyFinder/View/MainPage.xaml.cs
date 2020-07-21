@@ -1,5 +1,6 @@
 ﻿using MonkeyFinder.Model;
 using MonkeyFinder.ViewModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace MonkeyFinder.View

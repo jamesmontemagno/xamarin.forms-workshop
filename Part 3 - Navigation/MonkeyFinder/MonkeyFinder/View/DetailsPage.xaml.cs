@@ -6,7 +6,6 @@ using Xamarin.Forms.Xaml;
 
 namespace MonkeyFinder.View
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetailsPage : ContentPage
     {
         public DetailsPage()

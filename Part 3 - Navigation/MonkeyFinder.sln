@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonkeyFinder", "MonkeyFinde
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3EB00B02-CDB9-4C6F-9D87-BCABD1A3675D}"
 	ProjectSection(SolutionItems) = preProject
-		..\README.md = ..\README.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyFinder.UWP", "MonkeyFinder\MonkeyFinder.UWP\MonkeyFinder.UWP.csproj", "{160C183C-51DF-4C77-AAE5-C652D8368771}"
@@ -337,7 +337,11 @@ Global
 		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|ARM64.Build.0 = Debug|ARM64
 		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|ARM64.Deploy.0 = Debug|ARM64
 		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|iPhone.ActiveCfg = Debug|x86
+		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|iPhone.Build.0 = Debug|x86
+		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|iPhone.Deploy.0 = Debug|x86
 		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
+		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|iPhoneSimulator.Build.0 = Debug|x86
+		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|iPhoneSimulator.Deploy.0 = Debug|x86
 		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|x64.ActiveCfg = Debug|x64
 		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|x64.Build.0 = Debug|x64
 		{160C183C-51DF-4C77-AAE5-C652D8368771}.Debug|x64.Deploy.0 = Debug|x64

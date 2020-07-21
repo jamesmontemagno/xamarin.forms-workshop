@@ -25,10 +25,5 @@ I have also put together an abstract of what you can expect for the day long wor
 *	Navigation
 *	Platform Specific Optimizations
 *	Application Resources
-*	30 Min Session - Introduction to App Center
-*	Integrating Data Services
-*	Adding Azure Functions for Data
-*	User Specific Data
-*	Analytics, Crash reporting, and more
 
 If you have any questions please reach out to me on Twitter [@JamesMontemagno](https://twitter.com/jamesmontemagno). 

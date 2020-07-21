@@ -1,18 +1,16 @@
-﻿// To parse this JSON data, add NuGet 'Newtonsoft.Json' then do:
-//
-//    using MonkeyFinder.Model;
-//
-//    var monkeys = Monkey.FromJson(jsonString);
-
-using System;
-using System.Globalization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using System.Collections.Generic;
 
 namespace MonkeyFinder.Model
 {
-    public partial class Monkey
+    public class Monkey
     {
-      
+        public string Name { get; set; }
+        public string Location { get; set; }
+        public string Details { get; set; }
+        public string Image { get; set; }
+        public int Population { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+
     }
 }

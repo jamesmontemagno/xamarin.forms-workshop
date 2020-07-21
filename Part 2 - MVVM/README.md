@@ -147,9 +147,6 @@ We are ready to create a method named `GetMonkeysAsync` which will retrieve the 
 public class MonkeysViewModel : BaseViewModel
 {
     //...
-    HttpClient httpClient;
-    HttpClient Client => httpClient ?? (httpClient = new HttpClient());
-
     async Task GetMonkeysAsync()
     {
     }
@@ -203,7 +200,8 @@ async Task GetMonkeysAsync()
     {
         IsBusy = true;
 
-        var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
+        var client = new HttpClient();
+        var json = await client.GetStringAsync("https://montemagno.com/monkeys.json");
         var monkeys =  Monkey.FromJson(json);
     }
     ... 
@@ -220,7 +218,8 @@ async Task GetMonkeysAsync()
     {
         IsBusy = true;
 
-        var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
+        var client = new HttpClient();
+        var json = await client.GetStringAsync("https://montemagno.com/monkeys.json");
         var monkeys =  Monkey.FromJson(json);
 
         Monkeys.Clear();
@@ -258,7 +257,8 @@ async Task GetMonkeysAsync()
     {
         IsBusy = true;
 
-        var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
+        var client = new HttpClient();
+        var json = await client.GetStringAsync("https://montemagno.com/monkeys.json");
         var monkeys =  Monkey.FromJson(json);
 
         Monkeys.Clear();
@@ -295,7 +295,8 @@ using (var resFilestream = a.GetManifestResourceStream("MonkeyFinder.monkeydata.
 }
 
 // if internet is working
-//var json = await Client.GetStringAsync("https://montemagno.com/monkeys.json");
+//var client = new HttpClient();
+//var json = await client.GetStringAsync("https://montemagno.com/monkeys.json");
 
 var monkeys = Monkey.FromJson(json);
  ```
@@ -412,20 +413,16 @@ public MainPage()
     </d:ContentPage.BindingContext>
 
     <!-- Add this -->
-    <Grid RowSpacing="0" ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
     </Grid>
 </ContentPage>
 ```
 
-3. In the `MainPage.xaml`, we can add a `ListView` between the `Grid` tags that spans 2 Columns. We will also set the `ItemsSource` which will bind to our `Monkeys` ObservableCollection and additionally set a few properties for optimizing the list.
+3. In the `MainPage.xaml`, we can add a `CollectionView` between the `Grid` tags that spans 2 Columns. We will also set the `ItemsSource` which will bind to our `Monkeys` ObservableCollection and additionally set a few properties for optimizing the list.
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -445,25 +442,21 @@ public MainPage()
     </d:ContentPage.BindingContext>
 
     <!-- Add this -->
-    <Grid RowSpacing="0" ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-         <ListView ItemsSource="{Binding Monkeys}"
-                  HasUnevenRows="True"
-                  Grid.ColumnSpan="2">
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+         <CollectionView ItemsSource="{Binding Monkeys}"
+                         SelectionMode="Single"
+                         Grid.ColumnSpan="2">
 
-        </ListView>
+        </CollectionView>
     </Grid>
 </ContentPage>
 ```
 
-4. In the `MainPage.xaml`, we can add a `ItemTemplate` to our `ListView` that will represent what each item in the list displays:
+4. In the `MainPage.xaml`, we can add a `ItemTemplate` to our `CollectionView` that will represent what each item in the list displays:
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -482,55 +475,39 @@ public MainPage()
         <viewmodel:MonkeysViewModel/>
     </d:ContentPage.BindingContext>
 
-    <Grid RowSpacing="0" ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-         <ListView ItemsSource="{Binding Monkeys}"
-                  HasUnevenRows="True"
-                  Grid.ColumnSpan="2">
-            <!-- Add this -->
-            <ListView.ItemTemplate>
+   <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+        <CollectionView
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding Monkeys}"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
-                    <ViewCell>
-                         <Frame Visual="Material" 
-                               IsClippedToBounds="True"
-                               BackgroundColor="White"
-                               InputTransparent="True"
-                               HasShadow="True"
-                               Margin="10,5"
-                               Padding="0"
-                               CornerRadius="10"
-                               HeightRequest="125">
-                            <Grid ColumnSpacing="10" Padding="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="125"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Source="{Binding Image}"
-                                       Aspect="AspectFill"/>
-                                <StackLayout Grid.Column="1"
-                                             Padding="10"
-                                             VerticalOptions="Center">
-                                    <Label Text="{Binding Name}" FontSize="Large"/>
-                                    <Label Text="{Binding Location}" FontSize="Medium"/>
+                    <Grid Padding="10,5">
+                        <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                            <Grid Padding="0" ColumnDefinitions="125,*">
+                                <Image Aspect="AspectFill" Source="{Binding Image}" />
+                                <StackLayout
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    VerticalOptions="Center">
+                                    <Label FontSize="Large" Text="{Binding Name}" />
+                                    <Label FontSize="Medium" Text="{Binding Location}" />
                                 </StackLayout>
                             </Grid>
                         </Frame>
-                    </ViewCell>
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 </ContentPage>
 ```
 
-5. In the `MainPage.xaml`, we can add a `Button` under our `ListView` that will enable us to click it and get the monkeys from the server:
+5. In the `MainPage.xaml`, we can add a `Button` under our `CollectionView` that will enable us to click it and get the monkeys from the server:
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -550,49 +527,34 @@ public MainPage()
     </d:ContentPage.BindingContext>
 
 
-    <Grid RowSpacing="0" ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-         <ListView ItemsSource="{Binding Monkeys}"
-                  HasUnevenRows="True"
-                  Grid.ColumnSpan="2">
-            <ListView.ItemTemplate>
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+        <CollectionView
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding Monkeys}"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
-                    <ViewCell>
-                        <Frame Visual="Material" 
-                               IsClippedToBounds="True"
-                               BackgroundColor="White"
-                               InputTransparent="True"
-                               HasShadow="True"
-                               Margin="10,5"
-                               Padding="0"
-                               CornerRadius="10"
-                               HeightRequest="125">
-                            <Grid ColumnSpacing="10" Padding="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="125"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Source="{Binding Image}"
-                                       Aspect="AspectFill"/>
-                                <StackLayout Grid.Column="1"
-                                             Padding="10"
-                                             VerticalOptions="Center">
-                                    <Label Text="{Binding Name}" FontSize="Large"/>
-                                    <Label Text="{Binding Location}" FontSize="Medium"/>
+                    <Grid Padding="10,5">
+                        <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                            <Grid Padding="0" ColumnDefinitions="125,*">
+                                <Image Aspect="AspectFill" Source="{Binding Image}" />
+                                <StackLayout
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    VerticalOptions="Center">
+                                    <Label FontSize="Large" Text="{Binding Name}" />
+                                    <Label FontSize="Medium" Text="{Binding Location}" />
                                 </StackLayout>
                             </Grid>
                         </Frame>
-                    </ViewCell>
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <!-- Add this -->
         <Button Text="Search" 
                 Command="{Binding GetMonkeysCommand}"
@@ -625,49 +587,34 @@ public MainPage()
         <viewmodel:MonkeysViewModel/>
     </d:ContentPage.BindingContext>
 
-    <Grid RowSpacing="0" ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-         <ListView ItemsSource="{Binding Monkeys}"
-                  HasUnevenRows="True"
-                  Grid.ColumnSpan="2">
-            <ListView.ItemTemplate>
-                 <DataTemplate x:DataType="model:Monkey">
-                    <ViewCell>
-                         <Frame Visual="Material" 
-                               IsClippedToBounds="True"
-                               BackgroundColor="White"
-                               InputTransparent="True"
-                               HasShadow="True"
-                               Margin="10,5"
-                               Padding="0"
-                               CornerRadius="10"
-                               HeightRequest="125">
-                            <Grid ColumnSpacing="10" Padding="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="125"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Source="{Binding Image}"
-                                       Aspect="AspectFill"/>
-                                <StackLayout Grid.Column="1"
-                                             Padding="10"
-                                             VerticalOptions="Center">
-                                    <Label Text="{Binding Name}" FontSize="Large"/>
-                                    <Label Text="{Binding Location}" FontSize="Medium"/>
+   <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+        <CollectionView
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding Monkeys}"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Monkey">
+                    <Grid Padding="10,5">
+                        <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                            <Grid Padding="0" ColumnDefinitions="125,*">
+                                <Image Aspect="AspectFill" Source="{Binding Image}" />
+                                <StackLayout
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    VerticalOptions="Center">
+                                    <Label FontSize="Large" Text="{Binding Name}" />
+                                    <Label FontSize="Medium" Text="{Binding Location}" />
                                 </StackLayout>
                             </Grid>
                         </Frame>
-                    </ViewCell>
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <Button Text="Search" 
                 Command="{Binding GetMonkeysCommand}"
@@ -691,6 +638,6 @@ public MainPage()
 
 ### Run the App
 
-1. In Visual Studio, set the iOS or Android project as the startup project 
+1. In Visual Studio, set the iOS, Android, or Windows project as the startup project 
 
 2. In Visual Studio, click "Start Debugging"
