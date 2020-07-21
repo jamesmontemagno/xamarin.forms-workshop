@@ -202,7 +202,7 @@ async Task GetMonkeysAsync()
 
         var client = new HttpClient();
         var json = await client.GetStringAsync("https://montemagno.com/monkeys.json");
-        var monkeys =  Monkey.FromJson(json);
+        var monkeys =  JsonConvert.DeserializeObject<List<Monkey>>(json);
     }
     ... 
 }
@@ -220,7 +220,7 @@ async Task GetMonkeysAsync()
 
         var client = new HttpClient();
         var json = await client.GetStringAsync("https://montemagno.com/monkeys.json");
-        var monkeys =  Monkey.FromJson(json);
+        var monkeys =  JsonConvert.DeserializeObject<List<Monkey>>(json);
 
         Monkeys.Clear();
         foreach (var monkey in monkeys)
@@ -259,7 +259,7 @@ async Task GetMonkeysAsync()
 
         var client = new HttpClient();
         var json = await client.GetStringAsync("https://montemagno.com/monkeys.json");
-        var monkeys =  Monkey.FromJson(json);
+        var monkeys =  JsonConvert.DeserializeObject<List<Monkey>>(json);
 
         Monkeys.Clear();
         foreach (var monkey in monkeys)
@@ -298,7 +298,7 @@ using (var resFilestream = a.GetManifestResourceStream("MonkeyFinder.monkeydata.
 //var client = new HttpClient();
 //var json = await client.GetStringAsync("https://montemagno.com/monkeys.json");
 
-var monkeys = Monkey.FromJson(json);
+var monkeys = JsonConvert.DeserializeObject<List<Monkey>>(json);
  ```
 
 #### Create GetMonkeys Command
