@@ -11,8 +11,7 @@ namespace MonkeyFinder.UWP
         public MainPage()
         {
             this.InitializeComponent();
-            Xamarin.Forms.Application.Current.On<WindowsOS>().SetImageDirectory("Assets");
-            LoadApplication(new MonkeyFinder.App());
+            LoadApplication(new MonkeyFinder.App());           
         }
     }
 }

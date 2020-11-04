@@ -5,16 +5,18 @@ using MonkeyFinder.View;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Device = Xamarin.Forms.Device;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.WindowsSpecific;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MonkeyFinder
 {
-    public partial class App : Application
+    public partial class App : Xamarin.Forms.Application
     {
         public App()
         {
 
-            Device.SetFlags(new string[] { "Shapes_Experimental" });
+            On<Windows>().SetImageDirectory("Assets");
 
             InitializeComponent();
 
